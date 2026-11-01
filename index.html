@@ -421,86 +421,91 @@
         }
 
         /* ==================== 手機端響應式排版 (RWD) ==================== */
-        @media (max-width: 768px) {
-            /* 1. 基礎頁面與排版微調 */
-            body {
-                padding: 15px 10px;
-            }
-            .header-title {
-                font-size: 20px;
-                letter-spacing: 2px;
-            }
-            .action-btn-auth {
-                padding: 6px 10px;
-                font-size: 12px;
-                white-space: nowrap;
-            }
-
-            /* 2. 導覽列分頁按鈕自適應 */
-            .nav-container {
-                gap: 6px;
-            }
-            .nav-tab {
-                padding: 8px 10px;
-                font-size: 12px;
-                flex: 1;
-                text-align: center;
-            }
-
-            /* 3. 雙欄 Grid 轉為單欄，身分卡維持每列 2 個欄位 */
-            .grid-2 {
-                display: block !important;
-            }
-            .info-card-grid {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 12px 10px;
-            }
-
-            /* 4. 輸入框、標籤與表格字體微調 */
-            .field-line {
-                font-size: 13px;
-            }
-            .field-label {
-                font-size: 11px;
-            }
-            th, td {
-                padding: 6px 4px;
-                font-size: 12px;
-            }
-            .cyber-card table {
-                width: 100% !important;
-            }
-
-            /* 5. 首頁 Lore Hero 區塊轉單欄 */
-            .lore-hero-container {
-                grid-template-columns: 1fr;
-                padding: 25px 20px;
-                gap: 25px;
-            }
-            .lore-slogan-title {
-                font-size: 24px;
-            }
-
-        /* 1. 讓技能網格在手機上變成單欄直立 */
-            .skills-grid-container {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 20px !important;
-            }
-
-            /* 2. 讓同一個分類方塊內多張表格上下無縫貼合 */
-            .skill-category-box table {
-                margin-top: 0 !important;
-                margin-bottom: 0 !important;
-                border-bottom: none !important;
-            }
-
-            /* 3. 隱藏「該分類方塊內，從第二張表格開始」的表頭，達成無縫接軌！ */
-            .skill-category-box table:not(:first-child) thead {
-                display: none !important;
-            }
+    @media (max-width: 768px) {
+        /* 1. 容器內邊距縮小 */
+        body {
+            padding: 15px 10px;
         }
+
+        /* 2. 頂部 Header 改為上下或放寬比例 */
+        .header-title {
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+        .action-btn-auth {
+            padding: 6px 10px;
+            font-size: 12px;
+            white-space: nowrap; /* 防止按鈕字被擠成直排 */
+        }
+
+        /* 3. 導覽列分頁按鈕自適應 */
+        .nav-container {
+            gap: 6px;
+        }
+        .nav-tab {
+            padding: 8px 10px;
+            font-size: 12px;
+            flex: 1; /* 三個按鈕平分寬度 */
+            text-align: center;
+        }
+
+        /* 4. 所有雙欄 Grid 轉為單欄上下排列 */
+        .grid-2, 
+        .info-card-grid {
+            grid-template-columns: 1fr !important;
+            gap: 15px;
+        }
+
+        /* 5. 身分資料卡：改為每列 2 個欄位 */
+        .info-card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px 10px;
+        }
+
+        /* 6. 輸入框與下拉選單寬度與文字調適 */
+        .field-line {
+            font-size: 13px;
+        }
+        .field-label {
+            font-size: 11px;
+        }
+
+        /* 7. 表格字體微調與防止破版 */
+        th, td {
+            padding: 6px 4px;
+            font-size: 12px;
+        }
+
+        /* 8. 首頁 Lore Hero 區塊轉單欄 */
+        .lore-hero-container {
+            grid-template-columns: 1fr;
+            padding: 25px 20px;
+            gap: 25px;
+        }
+        .lore-slogan-title {
+            font-size: 24px;
+        }
+        /* 1. 消除左右兩張表格之間的外距與間隔 */
+        .cyber-card .grid-2 {
+            display: block !important; /* 不使用 flex/grid 的 gap 間距 */
+        }
+
+        /* 2. 讓第一張表格底部去掉邊框，第二張表格頂部去掉邊框，達成視覺縫合 */
+        #skills-table-body-left table,
+        #skills-table-body-left {
+            margin-bottom: 0 !important;
+        }
+
+        /* 3. 隱藏手機版第二張表格的表頭 (<thead>)，並消除頂部外距 */
+        .cyber-card .grid-2 table:nth-child(2) thead {
+            display: none !important;
+        }
+
+        .cyber-card .grid-2 table:nth-child(2) {
+            margin-top: -1px !important; /* 讓兩張表格的線條完美重疊成單線 */
+        }
+    }
     </style>
 </head>
 <body>
