@@ -415,111 +415,108 @@
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
+        
         select option {
             background-color: var(--panel-border);
             color: var(--accent-cyan);
         }
 
-        /* 讓所有技能小表格強制採用固定寬度佈局，確保上下欄位絕對對齊 */
-        .skill-category-box table {
-            table-layout: fixed;
-            width: 100%;
+        /* 電腦版：技能分類小卡片容器 */
+        .skills-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
         }
 
-        /* 精準分配每一個欄位的寬度百分比（可根據需求微調總和為 100%） */
-        .skill-category-box th:nth-child(1), .skill-category-box td:nth-child(1) { width: 28%; } /* 技能名稱 */
-        .skill-category-box th:nth-child(2), .skill-category-box td:nth-child(2) { width: 12%; } /* 基底 */
-        .skill-category-box th:nth-child(3), .skill-category-box td:nth-child(3) { width: 12%; } /* 分配 */
-        .skill-category-box th:nth-child(4), .skill-category-box td:nth-child(4) { width: 12%; } /* 成長 */
-        .skill-category-box th:nth-child(5), .skill-category-box td:nth-child(5) { width: 12%; } /* 最終 */
-        .skill-category-box th:nth-child(6), .skill-category-box td:nth-child(6) { width: 24%; } /* 操作按鈕 */
+        .skill-category-box {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--panel-border);
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .skill-category-title {
+            color: var(--accent-pink);
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 4px;
+        }
+
+        /* 隱藏手機專用的單一大表格（電腦版不顯示） */
+        #mobile-skills-table-container {
+            display: none;
+        }
 
         /* ==================== 手機端響應式排版 (RWD) ==================== */
-    @media (max-width: 768px) {
-        /* 1. 容器內邊距縮小 */
-        body {
-            padding: 15px 10px;
-        }
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 10px;
+            }
 
-        /* 2. 頂部 Header 改為上下或放寬比例 */
-        .header-title {
-            font-size: 20px;
-            letter-spacing: 2px;
-        }
-        .action-btn-auth {
-            padding: 6px 10px;
-            font-size: 12px;
-            white-space: nowrap; /* 防止按鈕字被擠成直排 */
-        }
+            .header-title {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+            .action-btn-auth {
+                padding: 6px 10px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
 
-        /* 3. 導覽列分頁按鈕自適應 */
-        .nav-container {
-            gap: 6px;
-        }
-        .nav-tab {
-            padding: 8px 10px;
-            font-size: 12px;
-            flex: 1; /* 三個按鈕平分寬度 */
-            text-align: center;
-        }
+            .nav-container {
+                gap: 6px;
+            }
+            .nav-tab {
+                padding: 8px 10px;
+                font-size: 12px;
+                flex: 1;
+                text-align: center;
+            }
 
-        /* 4. 所有雙欄 Grid 轉為單欄上下排列 */
-        .grid-2, 
-        .info-card-grid {
-            grid-template-columns: 1fr !important;
-            gap: 15px;
-        }
+            .grid-2, 
+            .info-card-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px;
+            }
 
-        /* 5. 身分資料卡：改為每列 2 個欄位 */
-        .info-card-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px 10px;
-        }
+            .info-card-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px 10px;
+            }
 
-        /* 6. 輸入框與下拉選單寬度與文字調適 */
-        .field-line {
-            font-size: 13px;
-        }
-        .field-label {
-            font-size: 11px;
-        }
+            .field-line {
+                font-size: 13px;
+            }
+            .field-label {
+                font-size: 11px;
+            }
 
-        /* 7. 表格字體微調與防止破版 */
-        th, td {
-            padding: 6px 4px;
-            font-size: 12px;
-        }
+            th, td {
+                padding: 6px 4px;
+                font-size: 12px;
+            }
 
-        /* 8. 首頁 Lore Hero 區塊轉單欄 */
-        .lore-hero-container {
-            grid-template-columns: 1fr;
-            padding: 25px 20px;
-            gap: 25px;
-        }
-        .lore-slogan-title {
-            font-size: 24px;
-        }
-        /* 1. 消除左右兩張表格之間的外距與間隔 */
-        .cyber-card .grid-2 {
-            display: block !important; /* 不使用 flex/grid 的 gap 間距 */
-        }
+            .lore-hero-container {
+                grid-template-columns: 1fr;
+                padding: 25px 20px;
+                gap: 25px;
+            }
+            .lore-slogan-title {
+                font-size: 24px;
+            }
 
-        /* 2. 讓第一張表格底部去掉邊框，第二張表格頂部去掉邊框，達成視覺縫合 */
-        #skills-table-body-left table,
-        #skills-table-body-left {
-            margin-bottom: 0 !important;
+            /* 🎯 手機版：隱藏電腦版的分離小卡片，改顯示「單一一整張完美對齊的大表格」 */
+            .skills-grid-container {
+                display: none !important;
+            }
+            #mobile-skills-table-container {
+                display: block !important;
+            }
         }
-
-        /* 3. 隱藏手機版第二張表格的表頭 (<thead>)，並消除頂部外距 */
-        .cyber-card .grid-2 table:nth-child(2) thead {
-            display: none !important;
-        }
-
-        .cyber-card .grid-2 table:nth-child(2) {
-            margin-top: -1px !important; /* 讓兩張表格的線條完美重疊成單線 */
-        }
-    }
     </style>
 </head>
 <body>
@@ -673,21 +670,29 @@
             </div>
         </div>
 
-        <!-- 技能點數引擎 (左右雙欄排版) -->
+        <!-- 🎯 技能矩陣 (電腦版顯示分類小卡，手機版顯示完美對齊的單一大表格) -->
         <div class="cyber-card">
-            <div class="desc-box-title">🎯 技能矩陣 (可用點數：<span id="available-skill-points" style="color: var(--accent-cyan); font-size: 16px;">15</span> / 53)</div>
-            <div class="grid-2" style="gap: 20px; align-items: start; margin-top: 10px;">
+            <div class="desc-box-title" style="margin-bottom: 15px;">
+                🎯 技能矩陣 (可用點數：<span id="available-skill-points" style="color: var(--accent-cyan); font-size: 16px;">15</span> / 53)
+            </div>
+            
+            <!-- 電腦版容器：多個分類小卡片 -->
+            <div id="skills-categories-container" class="skills-grid-container"></div>
+
+            <!-- 手機版容器：同一張完美對齊的大表格 -->
+            <div id="mobile-skills-table-container">
                 <table>
                     <thead>
-                        <tr><th>技能</th><th>基底</th><th>分配</th><th>成長</th><th>最終</th><th>操作</th></tr>
+                        <tr>
+                            <th>技能</th>
+                            <th>基底</th>
+                            <th>分配</th>
+                            <th>成長</th>
+                            <th>最終</th>
+                            <th>操作</th>
+                        </tr>
                     </thead>
-                    <tbody id="skills-table-body-left"></tbody>
-                </table>
-                <table>
-                    <thead>
-                        <tr><th>技能</th><th>基底</th><th>分配</th><th>成長</th><th>最終</th><th>操作</th></tr>
-                    </thead>
-                    <tbody id="skills-table-body-right"></tbody>
+                    <tbody id="mobile-skills-table-body"></tbody>
                 </table>
             </div>
         </div>
@@ -827,27 +832,27 @@
     // ==================== 2. 技能點數矩陣 ====================
     const totalSkillPointsPool = 53;
     let skillsData = [
-        { id: "throw", name: "投擲", calcBase: () => Math.floor(getFinalStat("strength") * 0.25 + getFinalStat("agility") * 0.25 + 1), points: 0, growth: 0 },
-        { id: "brawl", name: "格鬥", calcBase: () => Math.floor(getFinalStat("strength") * 0.3 + getFinalStat("constitution") * 0.2 + 1), points: 0, growth: 0 },
-        { id: "pistol", name: "手槍", calcBase: () => Math.floor(getFinalStat("agility") * 0.3 + getFinalStat("perception") * 0.2), points: 0, growth: 0 },
-        { id: "rifle", name: "長管槍", calcBase: () => Math.floor(getFinalStat("agility") * 0.2 + getFinalStat("perception") * 0.3), points: 0, growth: 0 },
-        { id: "dodge", name: "閃避", calcBase: () => Math.floor(getFinalStat("agility") * 0.25 + getFinalStat("perception") * 0.25), points: 0, growth: 0 },
-        { id: "survival", name: "野外求生", calcBase: () => 0, points: 0, growth: 0 },
-        { id: "stealth", name: "潛行", calcBase: () => Math.floor(getFinalStat("agility") * 0.35 + getFinalStat("perception") * 0.15 + 1), points: 0, growth: 0 },
-        { id: "rad_lore", name: "輻射辨別", calcBase: () => Math.floor(getFinalStat("perception") * 0.3 + getFinalStat("willpower") * 0.2), points: 0, growth: 0 },
-        { id: "equipment", name: "設備操作", calcBase: () => 0, points: 0, growth: 0 },
-        { id: "decrypt", name: "破譯", calcBase: () => 0, points: 0, growth: 0 },
-        { id: "repair", name: "機械維修", calcBase: () => 0, points: 0, growth: 0 },
-        { id: "first_aid", name: "急救", calcBase: () => Math.floor(getFinalStat("perception") * 0.25 + getFinalStat("willpower") * 0.25 + 3), points: 0, growth: 0 },
-        { id: "medicine", name: "藥物知識", calcBase: () => 0, points: 0, growth: 0 },
-        { id: "investigation", name: "資訊檢索", calcBase: () => Math.floor(getFinalStat("perception") * 0.35 + getFinalStat("willpower") * 0.15 + 5), points: 0, growth: 0 },
-        { id: "search", name: "搜察", calcBase: () => Math.floor(getFinalStat("perception") * 0.4 + getFinalStat("agility") * 0.1 + 3), points: 0, growth: 0 },
-        { id: "tracking", name: "追蹤", calcBase: () => Math.floor(getFinalStat("perception") * 0.35 + getFinalStat("agility") * 0.15 + 1), points: 0, growth: 0 },
-        { id: "listen", name: "聆聽", calcBase: () => Math.floor(getFinalStat("perception") * 0.4 + getFinalStat("willpower") * 0.1 + 3), points: 0, growth: 0 },
-        { id: "persuade", name: "說服", calcBase: () => Math.floor(getFinalStat("appearance") * 0.25 + getFinalStat("willpower") * 0.25 + 2), points: 0, growth: 0 },
-        { id: "intimidate", name: "威嚇", calcBase: () => Math.floor(getFinalStat("strength") * 0.25 + getFinalStat("willpower") * 0.25 + 3), points: 0, growth: 0 },
-        { id: "deceit", name: "欺瞞", calcBase: () => Math.floor(getFinalStat("appearance") * 0.3 + getFinalStat("perception") * 0.2 + 1), points: 0, growth: 0 },
-        { id: "charm", name: "魅力", calcBase: () => Math.floor(getFinalStat("appearance") * 0.35 + getFinalStat("willpower") * 0.15 + 3), points: 0, growth: 0 }
+        { id: "throw", name: "投擲", category: "戰鬥", calcBase: () => Math.floor(getFinalStat("strength") * 0.25 + getFinalStat("agility") * 0.25 + 1), points: 0, growth: 0 },
+        { id: "brawl", name: "格鬥", category: "戰鬥", calcBase: () => Math.floor(getFinalStat("strength") * 0.3 + getFinalStat("constitution") * 0.2 + 1), points: 0, growth: 0 },
+        { id: "pistol", name: "手槍", category: "戰鬥", calcBase: () => Math.floor(getFinalStat("agility") * 0.3 + getFinalStat("perception") * 0.2), points: 0, growth: 0 },
+        { id: "rifle", name: "長管槍", category: "戰鬥", calcBase: () => Math.floor(getFinalStat("agility") * 0.2 + getFinalStat("perception") * 0.3), points: 0, growth: 0 },
+        { id: "dodge", name: "閃避", category: "戰鬥", calcBase: () => Math.floor(getFinalStat("agility") * 0.25 + getFinalStat("perception") * 0.25), points: 0, growth: 0 },
+        { id: "survival", name: "野外求生", category: "生存", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "stealth", name: "潛行", category: "生存", calcBase: () => Math.floor(getFinalStat("agility") * 0.35 + getFinalStat("perception") * 0.15 + 1), points: 0, growth: 0 },
+        { id: "rad_lore", name: "輻射辨別", category: "生存", calcBase: () => Math.floor(getFinalStat("perception") * 0.3 + getFinalStat("willpower") * 0.2), points: 0, growth: 0 },
+        { id: "equipment", name: "設備操作", category: "技術", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "decrypt", name: "破譯", category: "技術", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "repair", name: "機械維修", category: "技術", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "first_aid", name: "急救", category: "醫療", calcBase: () => Math.floor(getFinalStat("perception") * 0.25 + getFinalStat("willpower") * 0.25 + 3), points: 0, growth: 0 },
+        { id: "medicine", name: "藥物知識", category: "醫療", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "investigation", name: "資訊檢索", category: "調查", calcBase: () => Math.floor(getFinalStat("perception") * 0.35 + getFinalStat("willpower") * 0.15 + 5), points: 0, growth: 0 },
+        { id: "search", name: "搜察", category: "調查", calcBase: () => Math.floor(getFinalStat("perception") * 0.4 + getFinalStat("agility") * 0.1 + 3), points: 0, growth: 0 },
+        { id: "tracking", name: "追蹤", category: "調查", calcBase: () => Math.floor(getFinalStat("perception") * 0.35 + getFinalStat("agility") * 0.15 + 1), points: 0, growth: 0 },
+        { id: "listen", name: "聆聽", category: "調查", calcBase: () => Math.floor(getFinalStat("perception") * 0.4 + getFinalStat("willpower") * 0.1 + 3), points: 0, growth: 0 },
+        { id: "persuade", name: "說服", category: "社交", calcBase: () => Math.floor(getFinalStat("appearance") * 0.25 + getFinalStat("willpower") * 0.25 + 2), points: 0, growth: 0 },
+        { id: "intimidate", name: "威嚇", category: "社交", calcBase: () => Math.floor(getFinalStat("strength") * 0.25 + getFinalStat("willpower") * 0.25 + 3), points: 0, growth: 0 },
+        { id: "deceit", name: "欺瞞", category: "社交", calcBase: () => Math.floor(getFinalStat("appearance") * 0.3 + getFinalStat("perception") * 0.2 + 1), points: 0, growth: 0 },
+        { id: "charm", name: "魅力", category: "社交", calcBase: () => Math.floor(getFinalStat("appearance") * 0.35 + getFinalStat("willpower") * 0.15 + 3), points: 0, growth: 0 }
     ];
 
     function getUsedSkillPoints() {
@@ -897,32 +902,68 @@
         document.getElementById("stat-rad").innerText = racesData[raceName]?.rad || 0;
         document.getElementById("available-skill-points").innerText = totalSkillPointsPool - getUsedSkillPoints();
         
-        // 更新技能左右雙欄表格
-        let skillsLeft = document.getElementById("skills-table-body-left");
-        let skillsRight = document.getElementById("skills-table-body-right");
-        skillsLeft.innerHTML = "";
-        skillsRight.innerHTML = "";
+        // ==================== 渲染電腦版：分類小卡片 ====================
+        let container = document.getElementById("skills-categories-container");
+        if (container) {
+            container.innerHTML = "";
+            let groupedSkills = {};
+            skillsData.forEach(s => {
+                if (!groupedSkills[s.category]) groupedSkills[s.category] = [];
+                groupedSkills[s.category].push(s);
+            });
 
-        skillsData.forEach((s, index) => {
-            let rowHtml = `
-                <tr>
-                    <td><strong>${s.name}</strong></td>
-                    <td>${s.calcBase()}</td>
-                    <td><span style="color: var(--accent-pink); font-weight: bold;">${s.points}</span></td>
-                    <td>${s.growth}</td>
-                    <td><strong style="color: var(--accent-green);">${s.calcBase() + s.points + s.growth}</strong></td>
-                    <td>
-                        <button class="action-btn" onclick="modifySkillPoint('${s.id}', -1)">-</button>
-                        <button class="action-btn" onclick="modifySkillPoint('${s.id}', 1)">+</button>
-                    </td>
-                </tr>`;
-            
-            if (index < 13) {
-                skillsLeft.innerHTML += rowHtml;
-            } else {
-                skillsRight.innerHTML += rowHtml;
+            for (let catName in groupedSkills) {
+                let rowsHtml = groupedSkills[catName].map(s => {
+                    let dynamicBase = s.calcBase();
+                    let finalVal = dynamicBase + s.points + s.growth;
+                    return `<tr>
+                        <td><strong>${s.name}</strong></td>
+                        <td>${dynamicBase}</td>
+                        <td><span style="color: var(--accent-pink); font-weight: bold;">${s.points}</span></td>
+                        <td>${s.growth}</td>
+                        <td><strong style="color: var(--accent-green);">${finalVal}</strong></td>
+                        <td>
+                            <button class="action-btn" onclick="modifySkillPoint('${s.id}', -1)">-</button>
+                            <button class="action-btn" onclick="modifySkillPoint('${s.id}', 1)">+</button>
+                        </td>
+                    </tr>`;
+                }).join('');
+
+                container.innerHTML += `
+                    <div class="skill-category-box">
+                        <div class="skill-category-title">${catName}</div>
+                        <table>
+                            <thead>
+                                <tr><th>技能</th><th>基底</th><th>分配</th><th>成長</th><th>最終</th><th>操作</th></tr>
+                            </thead>
+                            <tbody>${rowsHtml}</tbody>
+                        </table>
+                    </div>
+                `;
             }
-        });
+        }
+
+        // ==================== 渲染手機版：單一大表格 ====================
+        let mobileTbody = document.getElementById("mobile-skills-table-body");
+        if (mobileTbody) {
+            mobileTbody.innerHTML = "";
+            skillsData.forEach(s => {
+                let dynamicBase = s.calcBase();
+                let finalVal = dynamicBase + s.points + s.growth;
+                mobileTbody.innerHTML += `
+                    <tr>
+                        <td><strong>${s.name}</strong></td>
+                        <td>${dynamicBase}</td>
+                        <td><span style="color: var(--accent-pink); font-weight: bold;">${s.points}</span></td>
+                        <td>${s.growth}</td>
+                        <td><strong style="color: var(--accent-green);">${finalVal}</strong></td>
+                        <td>
+                            <button class="action-btn" onclick="modifySkillPoint('${s.id}', -1)">-</button>
+                            <button class="action-btn" onclick="modifySkillPoint('${s.id}', 1)">+</button>
+                        </td>
+                    </tr>`;
+            });
+        }
     }
 
     // ==================== 4. 檢定與分頁選單 ====================
