@@ -420,6 +420,20 @@
             color: var(--accent-cyan);
         }
 
+        /* 讓所有技能小表格強制採用固定寬度佈局，確保上下欄位絕對對齊 */
+        .skill-category-box table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        /* 精準分配每一個欄位的寬度百分比（可根據需求微調總和為 100%） */
+        .skill-category-box th:nth-child(1), .skill-category-box td:nth-child(1) { width: 28%; } /* 技能名稱 */
+        .skill-category-box th:nth-child(2), .skill-category-box td:nth-child(2) { width: 12%; } /* 基底 */
+        .skill-category-box th:nth-child(3), .skill-category-box td:nth-child(3) { width: 12%; } /* 分配 */
+        .skill-category-box th:nth-child(4), .skill-category-box td:nth-child(4) { width: 12%; } /* 成長 */
+        .skill-category-box th:nth-child(5), .skill-category-box td:nth-child(5) { width: 12%; } /* 最終 */
+        .skill-category-box th:nth-child(6), .skill-category-box td:nth-child(6) { width: 24%; } /* 操作按鈕 */
+
         /* ==================== 手機端響應式排版 (RWD) ==================== */
     @media (max-width: 768px) {
         /* 1. 容器內邊距縮小 */
@@ -485,6 +499,10 @@
         }
         .lore-slogan-title {
             font-size: 24px;
+        }
+        /* 1. 消除左右兩張表格之間的外距與間隔 */
+        .cyber-card .grid-2 {
+            display: block !important; /* 不使用 flex/grid 的 gap 間距 */
         }
 
         /* 2. 讓第一張表格底部去掉邊框，第二張表格頂部去掉邊框，達成視覺縫合 */
