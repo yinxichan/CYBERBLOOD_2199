@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝕮𝖞𝖇𝖊𝖗𝕭𝖑𝖔𝖔𝕯 𝟚𝟙𝟡𝟡</title>
+    <style>
+        :root {
+            --bg-dark: #0b0e14;
+            --panel-bg: rgba(18, 22, 31, 0.85);
+            --panel-border: #262c3a;
+            --accent-pink: #00f0ff;
+            --accent-cyan: #00f0ff;
+            --accent-green: #2ea043;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 121, 198, 0.08), transparent 70%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* 頂部 Header 與標題 */
+        .header-title {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 15px;
+        }
+        .header-title span { color: var(--accent-pink); }
+
+        /* 頂部導覽列按鈕 */
+        .nav-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--panel-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+        }
+        .nav-tab:hover {
+            color: var(--text-main);
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 15px rgba(255, 121, 198, 0.2);
+            transform: translateY(-2px);
+        }
+        .nav-tab.active {
+            background: var(--accent-pink) !important;
+            color: #000 !important;
+            border-color: var(--accent-pink) !important;
+            box-shadow: 0 0 20px rgba(255, 121, 198, 0.4);
+        }
+
+        /* 科技面板卡牌 */
+        .cyber-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            padding: 24px;
+            margin-bottom: 20px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px;
+            width: 8px; height: 8px;
+            border-top: 2px solid var(--accent-pink);
+            border-left: 2px solid var(--accent-pink);
+        }
+
+        /* 無邊框底線風格輸入框 */
+        .info-card-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px 30px;
+            align-items: end;
+        }
+        .field-group { text-align: center; }
+        .field-line {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--panel-border);
+            text-align: center;
+            color: var(--text-main);
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 0;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+        .field-line:focus {
+            border-bottom: 1px solid var(--accent-pink);
+            outline: none;
+        }
+        .field-label {
+            margin-top: 6px;
+            font-size: 13px; /* 放大欄位小標題 */
+            color: var(--accent-pink);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .sub-fields { display: flex; gap: 8px; justify-content: center; }
+
+        /* 右側文字輸入方塊 */
+        .desc-box-container {
+            border: 1px solid var(--panel-border);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            margin-top: 10px;
+        }
+        .desc-box-title {
+            font-size: 16px; /* 放大區塊大標題 */
+            color: var(--accent-pink);
+            margin-bottom: 8px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .desc-textarea {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            width: 100%;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 13px;
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+        .desc-textarea:focus { outline: none; color: var(--text-main); }
+
+        /* 表格與按鈕樣式 */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid var(--panel-border); padding: 8px; text-align: center; font-size: 13px; }
+        th { background: rgba(255, 255, 255, 0.02); color: var(--accent-pink); letter-spacing: 1px; font-size: 14px; }
+        
+        .action-btn {
+            background: rgba(255, 121, 198, 0.1);
+            color: var(--accent-pink);
+            border: 1px solid var(--accent-pink);
+            padding: 2px 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            background: var(--accent-pink);
+            color: #000;
+        }
+        .main-btn {
+            width: 100%;
+            background: var(--accent-pink);
+            color: #000;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        .main-btn:hover {
+            box-shadow: 0 0 20px rgba(255, 121, 198, 0.5);
+        }
+
+        /* 沉浸式世界觀首頁 (Hero Section) */
+        .lore-hero-container {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            padding: 50px 40px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .lore-slogan-title {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.3;
+            color: var(--text-main);
+            margin: 15px 0 20px 0;
+            letter-spacing: 2px;
+        }
+        .lore-subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        .lore-brand-tag {
+            color: var(--accent-pink);
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .lore-btn-group { display: flex; gap: 15px; }
+        .btn-primary-pink {
+            background: var(--accent-pink);
+            color: #000;
+            border: none;
+            padding: 12px 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary-pink:hover {
+            box-shadow: 0 0 20px rgba(255, 121, 198, 0.5);
+            transform: translateY(-2px);
+        }
+        .btn-outline-dark {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--panel-border);
+            padding: 12px 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-outline-dark:hover {
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+        .lore-logo-area { text-align: center; }
+        .lore-logo-svg {
+            width: 160px; height: 160px;
+            filter: drop-shadow(0 0 15px rgba(255, 121, 198, 0.3));
+        }
+        .lore-logo-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-pink);
+            margin-top: 15px;
+            letter-spacing: 3px;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-title">
+        <span>🌐</span> CYBERBLOOD 2199
+    </div>
+    
+    <!-- 分頁選單按鈕區 -->
+    <div class="nav-container">
+        <button id="tab-page-character" onclick="switchPage('page-character')" class="nav-tab active">🎮 角色控制台</button>
+        <button id="tab-page-lore" onclick="switchPage('page-lore')" class="nav-tab">📜 世界觀背景</button>
+        <button id="tab-page-rules" onclick="switchPage('page-rules')" class="nav-tab">🎲 判定規則</button>
+    </div>
+
+    <!-- 頁面 1：角色控制面板 -->
+    <div id="page-character" class="page-content">
+        <!-- 左右分欄高級卡牌 -->
+        <div class="cyber-card">
+            <div class="grid-2" style="grid-template-columns: 1.1fr 0.9fr;">
+                <!-- 左半欄：身分資料 -->
+                <div class="info-card-grid">
+                    <div class="field-group">
+                        <input type="text" id="char-name" value="奧羅拉 Aurora" class="field-line">
+                        <div class="field-label">角色姓名</div>
+                    </div>
+                    <div class="field-group">
+                        <input type="number" id="char-age" value="18" oninput="updateAll()" class="field-line">
+                        <div class="field-label">年齡 <span id="auto-age-stage" style="color: var(--text-muted); font-weight: normal;">(青年)</span></div>
+                    </div>
+
+                    <div class="field-group">
+                        <div class="sub-fields">
+                            <select id="char-race" onchange="updateAll()" class="field-line" style="color: var(--accent-pink);">
+                                <option value="半血裔" selected>半血裔</option>
+                                <option value="血裔">血裔</option>
+                                <option value="人類">人類</option>
+                                <option value="機械">機械</option>
+                            </select>
+                            <select id="char-bloodtype-1" class="field-line">
+                                <option value="RH+" selected>RH+</option>
+                                <option value="RH-">RH-</option>
+                            </select>
+                        </div>
+                        <div class="field-label">種族 ＆ 血型</div>
+                    </div>
+                    <div class="field-group">
+                        <select id="char-gender" class="field-line">
+                            <option value="女性" selected>女性</option>
+                            <option value="男性">男性</option>
+                            <option value="非二元">非二元</option>
+                        </select>
+                        <div class="field-label">性別</div>
+                    </div>
+
+                    <div class="field-group">
+                        <select id="char-birthplace" class="field-line" style="color: var(--accent-pink);">
+                            <option value="美利加和平國" selected>美利加和平國</option>
+                            <option value="美洲聯合印加共和帝國">美洲聯合印加共和帝國</option>
+                            <option value="青龍民族中華人民主義國">青龍民族中華人民主義國</option>
+                        </select>
+                        <div class="field-label">出生國家</div>
+                    </div>
+                    <div class="field-group">
+                        <input type="text" id="char-birthday" value="7/6" class="field-line">
+                        <div class="field-label">生日</div>
+                    </div>
+
+                    <div class="field-group">
+                        <div class="sub-fields">
+                            <select id="char-residence-zone" class="field-line">
+                                <option value="上層域" selected>上層域</option>
+                                <option value="下層域">下層域</option>
+                            </select>
+                            <select id="char-residence-city" class="field-line">
+                                <option value="撲克洲" selected>撲克洲</option>
+                                <option value="霓虹洲">霓虹洲</option>
+                            </select>
+                        </div>
+                        <div class="field-label">居住地</div>
+                    </div>
+                    <div class="field-group">
+                        <select id="char-job" class="field-line">
+                            <option value="外拍模特兼職" selected>外拍模特兼職</option>
+                            <option value="地下情報員">地下情報員</option>
+                        </select>
+                        <div class="field-label">職位</div>
+                    </div>
+                </div>
+
+                <!-- 右半欄：描述文字區 -->
+                <div>
+                    <div class="desc-box-container">
+                        <div class="desc-box-title">外貌特徵</div>
+                        <textarea id="char-appearance" class="desc-textarea" style="height: 50px;">靛藍眼眸，棕藍長髮，右側髮帶小辮子。頭戴黑兔耳髮箍。</textarea>
+                    </div>
+                    <div class="desc-box-container">
+                        <div class="desc-box-title">角色背景</div>
+                        <textarea id="char-story" class="desc-textarea" style="height: 110px;">奧羅拉從地下世界出生，幼時與母親一同生活。為了尋找在地表世界的父親，她不顧風險獨自前往地表...</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 屬性與狀態區 -->
+        <div class="grid-2">
+            <div class="cyber-card">
+                <div class="desc-box-title">⚡ 角色當前狀態</div>
+                <div class="grid-2" style="font-size: 14px; margin-top: 10px;">
+                    <div>
+                        <p>血量：<strong id="stat-hp" style="color: var(--accent-pink);">0</strong></p>
+                        <p>負重上限：<strong id="stat-carry">0</strong> kg</p>
+                    </div>
+                    <div>
+                        <p>空手傷害：<strong id="stat-brawl">0</strong></p>
+                        <p>輻射耐受：<strong id="stat-rad">0</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cyber-card">
+                <div class="desc-box-title">📊 基礎屬性矩陣</div>
+                <table>
+                    <thead>
+                        <tr><th>屬性</th><th>初始</th><th>加成</th><th>最終</th></tr>
+                    </thead>
+                    <tbody id="stats-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 技能點數引擎 (左右雙欄精簡排版) -->
+        <div class="cyber-card">
+            <div class="desc-box-title">🎯 技能矩陣 (可用點數：<span id="available-skill-points" style="color: var(--accent-pink); font-size: 16px;">15</span> / 53)</div>
+            <div class="grid-2" style="gap: 20px; align-items: start; margin-top: 10px;">
+                <table>
+                    <thead>
+                        <tr><th>技能</th><th>基底</th><th>分配</th><th>成長</th><th>最終</th><th>操作</th></tr>
+                    </thead>
+                    <tbody id="skills-table-body-left"></tbody>
+                </table>
+                <table>
+                    <thead>
+                        <tr><th>技能</th><th>基底</th><th>分配</th><th>成長</th><th>最終</th><th>操作</th></tr>
+                    </thead>
+                    <tbody id="skills-table-body-right"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 檢定區 -->
+        <div class="cyber-card">
+            <div class="desc-box-title">🎲 D20 檢定驅動器</div>
+            <div class="grid-2" style="margin-top: 10px;">
+                <div>
+                    <label class="field-label" style="text-align: left;">檢定類型</label>
+                    <select id="check-type" class="field-line" onchange="updateTargetOptions()">
+                        <option value="stat">屬性</option>
+                        <option value="skill" selected>技能</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label" style="text-align: left;">具體項目</label>
+                    <select id="dice-target" class="field-line"></select>
+                </div>
+            </div>
+            <button class="main-btn" onclick="rollskillCheck()">執行 D20 檢定</button>
+            <div id="dice-output" style="margin-top: 15px; text-align: center; font-size: 14px; color: var(--accent-pink);">等待指令...</div>
+        </div>
+    </div>
+
+    <!-- 頁面 2：世界觀背景 (解憂者風格 Hero Section) -->
+    <div id="page-lore" class="page-content" style="display: none;">
+        <div class="lore-hero-container">
+            <div>
+                <div class="lore-brand-tag">CYBERBLOOD 2199. 賽博之血 2199</div>
+                <div class="lore-slogan-title">
+                    一個核災後末日的世界，<br>
+                    您的選擇將決定一切。
+                </div>
+                <div class="lore-subtitle">
+                    每一份快樂都有它的價值。解憂者為全體市民提供安全、透明、即時的幸福記憶交易服務，讓你的好日子，不再只是回憶。
+                </div>
+                <div class="lore-btn-group">
+                    <button class="btn-primary-pink" onclick="alert('開啟 HippoLink 登入連線...')">登入 HippoLink</button>
+                    <button class="btn-outline-dark" onclick="alert('載入記憶存款服務說明...')">了解記憶存款</button>
+                </div>
+            </div>
+
+            <div class="lore-logo-area">
+                <svg class="lore-logo-svg" viewBox="0 0 100 100" fill="none" stroke="#ff79c6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M 30,20 C 10,20 10,50 30,50 C 50,50 50,20 70,20 C 90,20 90,50 70,50 C 50,50 30,80 70,80" />
+                    <circle cx="75" cy="45" r="3" fill="#ff79c6" />
+                </svg>
+                <div class="lore-logo-title">Lyaeus Co.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁面 3：規則說明 -->
+    <div id="page-rules" class="page-content" style="display: none;">
+        <div class="cyber-card">
+            <div class="desc-box-title">🎲 系統核心判定規則</div>
+            <p style="font-size: 14px; line-height: 1.8; color: var(--text-muted); margin-top: 15px;">
+                1. <strong>D20 下檢定：</strong> 擲出 1~20 亂數，數值小於等於目標值即為成功。<br>
+                2. <strong>極限臨界：</strong> 擲出 1 為「大成功」，擲出 20 為「大失敗」。<br>
+                3. <strong>上限限制：</strong> 最終檢定值上限預設為 20 點。
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const racesData = {
+        "半血裔": { strength: 1, agility: 2, constitution: 1, perception: 1, willpower: 2, appearance: 0, rad: 2 },
+        "血裔":   { strength: 3, agility: 2, constitution: 3, perception: 2, willpower: 2, appearance: 3, rad: 3 },
+        "人類":   { strength: 0, agility: 0, constitution: 1, perception: 0, willpower: 0, appearance: 0, rad: -3 },
+        "機械":   { strength: 5, agility: 0, constitution: 5, perception: 0, willpower: 0, appearance: -2, rad: 10 }
+    };
+
+    let characterBaseStats = { strength: 8, agility: 9, constitution: 9, perception: 11, willpower: 10, appearance: 13 };
+    const statNames = { strength: "力量", agility: "敏捷", constitution: "體質", perception: "感知", willpower: "意志", appearance: "外貌" };
+
+    function getAgeStage(age) {
+        if (age <= 14) return "青少年";
+        if (age <= 35) return "青年";
+        if (age <= 55) return "成年";
+        return "中年";
+    }
+
+    function getAgeBonus(stage) {
+        if (stage === "青少年") return { strength: -1, agility: 1, constitution: 1, perception: 0, willpower: -1 };
+        if (stage === "青年")   return { strength: 1,  agility: 1, constitution: 1, perception: 1, willpower: 0 };
+        if (stage === "成年")   return { strength: 1,  agility: 0, constitution: 1, perception: 1, willpower: 0 };
+        return { strength: -1, agility: -1, constitution: -1, perception: 1, willpower: 1 };
+    }
+
+    function getFinalStat(statKey) {
+        let base = characterBaseStats[statKey] || 0;
+        let raceSelect = document.getElementById("char-race");
+        let raceName = raceSelect ? raceSelect.value : "半血裔";
+        let ageNum = parseInt(document.getElementById("char-age").value) || 18;
+        let stage = getAgeStage(ageNum);
+        let rBonus = racesData[raceName]?.[statKey] || 0;
+        let aBonus = getAgeBonus(stage)[statKey] || 0;
+        return base + rBonus + aBonus;
+    }
+
+    let totalSkillPointsPool = 53;
+    let skillsData = [
+        { id: "throw", name: "投擲", calcBase: () => Math.floor(getFinalStat("strength") * 0.25 + getFinalStat("agility") * 0.25 + 1), points: 0, growth: 0 },
+        { id: "brawl", name: "格鬥", calcBase: () => Math.floor(getFinalStat("strength") * 0.3 + getFinalStat("constitution") * 0.2 + 1), points: 0, growth: 0 },
+        { id: "pistol", name: "手槍", calcBase: () => Math.floor(getFinalStat("agility") * 0.3 + getFinalStat("perception") * 0.2), points: 0, growth: 0 },
+        { id: "rifle", name: "長管槍", calcBase: () => Math.floor(getFinalStat("agility") * 0.2 + getFinalStat("perception") * 0.3), points: 0, growth: 0 },
+        { id: "dodge", name: "閃避", calcBase: () => Math.floor(getFinalStat("agility") * 0.25 + getFinalStat("perception") * 0.25), points: 0, growth: 0 },
+        { id: "survival", name: "野外求生", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "stealth", name: "潛行", calcBase: () => Math.floor(getFinalStat("agility") * 0.35 + getFinalStat("perception") * 0.15 + 1), points: 0, growth: 0 },
+        { id: "rad_lore", name: "輻射辨別", calcBase: () => Math.floor(getFinalStat("perception") * 0.3 + getFinalStat("willpower") * 0.2), points: 0, growth: 0 },
+        { id: "equipment", name: "設備操作", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "decrypt", name: "破譯", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "repair", name: "機械維修", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "first_aid", name: "急救", calcBase: () => Math.floor(getFinalStat("perception") * 0.25 + getFinalStat("willpower") * 0.25 + 3), points: 0, growth: 0 },
+        { id: "medicine", name: "藥物知識", calcBase: () => 0, points: 0, growth: 0 },
+        { id: "investigation", name: "資訊檢索", calcBase: () => Math.floor(getFinalStat("perception") * 0.35 + getFinalStat("willpower") * 0.15 + 5), points: 0, growth: 0 },
+        { id: "search", name: "搜察", calcBase: () => Math.floor(getFinalStat("perception") * 0.4 + getFinalStat("agility") * 0.1 + 3), points: 0, growth: 0 },
+        { id: "tracking", name: "追蹤", calcBase: () => Math.floor(getFinalStat("perception") * 0.35 + getFinalStat("agility") * 0.15 + 1), points: 0, growth: 0 },
+        { id: "listen", name: "聆聽", calcBase: () => Math.floor(getFinalStat("perception") * 0.4 + getFinalStat("willpower") * 0.1 + 3), points: 0, growth: 0 },
+        { id: "persuade", name: "說服", calcBase: () => Math.floor(getFinalStat("appearance") * 0.25 + getFinalStat("willpower") * 0.25 + 2), points: 0, growth: 0 },
+        { id: "intimidate", name: "威嚇", calcBase: () => Math.floor(getFinalStat("strength") * 0.25 + getFinalStat("willpower") * 0.25 + 3), points: 0, growth: 0 },
+        { id: "deceit", name: "欺瞞", calcBase: () => Math.floor(getFinalStat("appearance") * 0.3 + getFinalStat("perception") * 0.2 + 1), points: 0, growth: 0 },
+        { id: "charm", name: "魅力", calcBase: () => Math.floor(getFinalStat("appearance") * 0.35 + getFinalStat("willpower") * 0.15 + 3), points: 0, growth: 0 }
+    ];
+
+    function getUsedSkillPoints() {
+        return skillsData.reduce((sum, s) => sum + s.points, 0);
+    }
+
+    function modifySkillPoint(skillId, amount) {
+        let skill = skillsData.find(s => s.id === skillId);
+        if (!skill) return;
+        let used = getUsedSkillPoints();
+
+        if (amount > 0) {
+            if (used >= totalSkillPointsPool) return;
+            if (skill.calcBase() + skill.points + skill.growth + amount > 20) return;
+        }
+        if (amount < 0 && skill.points <= 0) return;
+
+        skill.points += amount;
+        updateAll();
+    }
+
+    function updateAll() {
+        let ageNum = parseInt(document.getElementById("char-age").value) || 18;
+        let stage = getAgeStage(ageNum);
+        document.getElementById("auto-age-stage").innerText = `(${stage})`;
+
+        let tbody = document.getElementById("stats-table-body");
+        tbody.innerHTML = "";
+        let raceName = document.getElementById("char-race").value || "半血裔";
+
+        for (let key in statNames) {
+            let base = characterBaseStats[key];
+            let bonus = (racesData[raceName]?.[key] || 0) + (getAgeBonus(stage)[key] || 0);
+            let final = base + bonus;
+            tbody.innerHTML += `<tr>
+                <td>${statNames[key]}</td>
+                <td>${base}</td>
+                <td>${bonus >= 0 ? '+' + bonus : bonus}</td>
+                <td><strong>${final}</strong></td>
+            </tr>`;
+        }
+
+        let finalStr = getFinalStat("strength");
+        let finalCon = getFinalStat("constitution");
+        document.getElementById("stat-hp").innerText = finalCon * 2 + Math.floor(finalStr / 2);
+        document.getElementById("stat-carry").innerText = finalStr * 2.5;
+        document.getElementById("stat-brawl").innerText = Math.floor(finalStr / 3) + " 點";
+        document.getElementById("stat-rad").innerText = racesData[raceName]?.rad || 0;
+
+        document.getElementById("available-skill-points").innerText = totalSkillPointsPool - getUsedSkillPoints();
+        
+        // 渲染左右雙欄技能表
+        let skillsLeft = document.getElementById("skills-table-body-left");
+        let skillsRight = document.getElementById("skills-table-body-right");
+        
+        if (skillsLeft && skillsRight) {
+            skillsLeft.innerHTML = "";
+            skillsRight.innerHTML = "";
+
+            let splitIndex = skillsData.findIndex(s => s.id === "investigation");
+            if (splitIndex === -1) splitIndex = 13;
+
+            skillsData.forEach((s, index) => {
+                let dynamicBase = s.calcBase();
+                let finalVal = dynamicBase + s.points + s.growth;
+                let rowHtml = `<tr>
+                    <td><strong>${s.name}</strong></td>
+                    <td>${dynamicBase}</td>
+                    <td><span style="color: var(--accent-pink); font-weight: bold;">${s.points}</span></td>
+                    <td>${s.growth}</td>
+                    <td><strong style="color: var(--accent-green);">${finalVal}</strong></td>
+                    <td>
+                        <button class="action-btn" onclick="modifySkillPoint('${s.id}', -1)">-</button>
+                        <button class="action-btn" onclick="modifySkillPoint('${s.id}', 1)">+</button>
+                    </td>
+                </tr>`;
+
+                if (index < splitIndex) {
+                    skillsLeft.innerHTML += rowHtml;
+                } else {
+                    skillsRight.innerHTML += rowHtml;
+                }
+            });
+        }
+    }
+
+    function rollskillCheck() {
+        let targetKey = document.getElementById("dice-target").value;
+        let foundSkill = skillsData.find(s => s.id === targetKey);
+        let statValue = foundSkill ? (foundSkill.calcBase() + foundSkill.points + foundSkill.growth) : getFinalStat(targetKey);
+        let checkName = foundSkill ? foundSkill.name : statNames[targetKey];
+        let d20 = Math.floor(Math.random() * 20) + 1;
+        let charName = document.getElementById("char-name").value || "無名角色";
+
+        let resultText = `🎲 <strong>${charName}</strong> 【${checkName}】檢定：D20 擲出 [${d20}] / 目標值 [${statValue}] ➔ `;
+        resultText += (d20 <= statValue) ? `<span style="color: var(--accent-green);">成功</span>` : `<span style="color: var(--accent-pink);">失敗</span>`;
+        document.getElementById("dice-output").innerHTML = resultText;
+    }
+
+    function updateTargetOptions() {
+        let typeSelect = document.getElementById("check-type").value;
+        let targetSelect = document.getElementById("dice-target");
+        targetSelect.innerHTML = "";
+        if (typeSelect === "stat") {
+            for (let key in statNames) {
+                targetSelect.innerHTML += `<option value="${key}">${statNames[key]}</option>`;
+            }
+        } else {
+            skillsData.forEach(s => {
+                targetSelect.innerHTML += `<option value="${s.id}">${s.name}</option>`;
+            });
+        }
+    }
+
+    function switchPage(pageId) {
+        document.querySelectorAll('.page-content').forEach(p => p.style.display = 'none');
+        document.getElementById(pageId).style.display = 'block';
+        document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+        let activeTab = document.getElementById('tab-' + pageId);
+        if (activeTab) activeTab.classList.add('active');
+    }
+
+    window.onload = function() {
+        updateAll();
+        updateTargetOptions();
+        switchPage('page-character');
+    };
+</script>
+
+</body>
+</html>
