@@ -9,8 +9,8 @@
             --bg-dark: #0b0e14;
             --panel-bg: rgba(18, 22, 31, 0.85);
             --panel-border: #262c3a;
-            --accent-pink: #00f0ff;
             --accent-cyan: #00f0ff;
+            --accent-pink: #ff8086;
             --accent-green: #2ea043;
             --text-main: #f0f6fc;
             --text-muted: #8b949e;
@@ -22,9 +22,8 @@
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             margin: 0;
             padding: 30px 20px;
-            background-image: radial-gradient(circle at 50% 0%, rgba(255, 121, 198, 0.08), transparent 70%);
             min-height: 100vh;
-
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 121, 198, 0.08), transparent 70%);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -34,27 +33,131 @@
             margin: 0 auto;
         }
 
+        /* 頂部 Header 容器（左右分開） */
+        .header-container,
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .modal-header {
+            margin-bottom: 0;
+        }
+
         /* 頂部 Header 與標題 */
         .header-title {
             font-size: 28px;
             font-weight: 900;
             letter-spacing: 4px;
             color: var(--text-main);
-            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 12px;
-            border-bottom: 1px solid var(--panel-border);
-            padding-bottom: 15px;
         }
-        .header-title span { color: var(--accent-pink); }
+
+        .header-title span {
+            color: var(--accent-cyan);
+        }
+
+        /* 按鈕與標籤通用 flex 排版 */
+        .account-actions,
+        .nav-container,
+        .sub-fields,
+        .lore-btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* 右上角存檔/登入按鈕區 */
+        .action-btn-auth {
+            background: rgba(0, 240, 255, 0.08);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+        }
+
+        .action-btn-auth:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .action-btn-auth.btn-register {
+            background: rgba(255, 128, 134, 0.08);
+            color: var(--accent-pink);
+            border-color: var(--accent-pink);
+        }
+
+        .action-btn-auth.btn-register:hover {
+            background: var(--accent-pink);
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 128, 134, 0.4);
+        }
+
+        /* 彈出視窗背景遮罩與內容 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 420px;
+            box-sizing: border-box;
+            animation: modalFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            color: var(--accent-pink);
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
         /* 頂部導覽列按鈕 */
         .nav-container {
-            display: flex;
             gap: 12px;
             margin-bottom: 25px;
         }
+
         .nav-tab {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--panel-border);
@@ -67,16 +170,18 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
         }
+
         .nav-tab:hover {
             color: var(--text-main);
-            border-color: var(--accent-pink);
+            border-color: var(--accent-cyan);
             box-shadow: 0 0 15px rgba(255, 121, 198, 0.2);
             transform: translateY(-2px);
         }
+
         .nav-tab.active {
-            background: var(--accent-pink) !important;
+            background: var(--accent-cyan) !important;
             color: #000 !important;
-            border-color: var(--accent-pink) !important;
+            border-color: var(--accent-cyan) !important;
             box-shadow: 0 0 20px rgba(255, 121, 198, 0.4);
         }
 
@@ -90,13 +195,16 @@
             backdrop-filter: blur(10px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
+
         .cyber-card::before {
             content: '';
             position: absolute;
-            top: -1px; left: -1px;
-            width: 8px; height: 8px;
-            border-top: 2px solid var(--accent-pink);
-            border-left: 2px solid var(--accent-pink);
+            top: -1px;
+            left: -1px;
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid var(--accent-cyan);
+            border-left: 2px solid var(--accent-cyan);
         }
 
         /* 無邊框底線風格輸入框 */
@@ -106,7 +214,11 @@
             gap: 20px 30px;
             align-items: end;
         }
-        .field-group { text-align: center; }
+
+        .field-group {
+            text-align: center;
+        }
+
         .field-line {
             background: transparent;
             border: none;
@@ -119,19 +231,20 @@
             width: 100%;
             transition: border-color 0.3s;
         }
+
         .field-line:focus {
-            border-bottom: 1px solid var(--accent-pink);
+            border-bottom: 1px solid var(--accent-cyan);
             outline: none;
         }
+
         .field-label {
             margin-top: 6px;
-            font-size: 13px; /* 放大欄位小標題 */
-            color: var(--accent-pink);
+            font-size: 12px;
+            color: var(--accent-cyan);
             letter-spacing: 1.5px;
             text-transform: uppercase;
             font-weight: bold;
         }
-        .sub-fields { display: flex; gap: 8px; justify-content: center; }
 
         /* 右側文字輸入方塊 */
         .desc-box-container {
@@ -140,13 +253,15 @@
             padding: 12px;
             margin-top: 10px;
         }
+
         .desc-box-title {
-            font-size: 16px; /* 放大區塊大標題 */
-            color: var(--accent-pink);
+            font-size: 16px;
+            color: var(--accent-cyan);
             margin-bottom: 8px;
             font-weight: bold;
             letter-spacing: 1px;
         }
+
         .desc-textarea {
             background: transparent;
             border: none;
@@ -158,29 +273,51 @@
             line-height: 1.6;
             box-sizing: border-box;
         }
-        .desc-textarea:focus { outline: none; color: var(--text-main); }
+
+        .desc-textarea:focus {
+            outline: none;
+            color: var(--text-main);
+        }
 
         /* 表格與按鈕樣式 */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid var(--panel-border); padding: 8px; text-align: center; font-size: 13px; }
-        th { background: rgba(255, 255, 255, 0.02); color: var(--accent-pink); letter-spacing: 1px; font-size: 14px; }
-        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid var(--panel-border);
+            padding: 8px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
         .action-btn {
             background: rgba(255, 121, 198, 0.1);
-            color: var(--accent-pink);
-            border: 1px solid var(--accent-pink);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
             padding: 2px 8px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.2s;
         }
+
         .action-btn:hover {
-            background: var(--accent-pink);
+            background: var(--accent-cyan);
             color: #000;
         }
+
         .main-btn {
             width: 100%;
-            background: var(--accent-pink);
+            background: var(--accent-cyan);
             color: #000;
             border: none;
             padding: 12px;
@@ -191,6 +328,7 @@
             transition: all 0.3s;
             margin-top: 15px;
         }
+
         .main-btn:hover {
             box-shadow: 0 0 20px rgba(255, 121, 198, 0.5);
         }
@@ -205,6 +343,7 @@
             gap: 40px;
             align-items: center;
         }
+
         .lore-slogan-title {
             font-size: 36px;
             font-weight: 900;
@@ -213,73 +352,94 @@
             margin: 15px 0 20px 0;
             letter-spacing: 2px;
         }
+
         .lore-subtitle {
             color: var(--text-muted);
             font-size: 14px;
             line-height: 1.8;
             margin-bottom: 30px;
         }
-        .lore-brand-tag {
-            color: var(--accent-pink);
+
+        .lore-brand-tag,
+        .lore-logo-title {
+            color: var(--accent-cyan);
             font-size: 12px;
             font-weight: bold;
             letter-spacing: 2px;
         }
-        .lore-btn-group { display: flex; gap: 15px; }
-        .btn-primary-pink {
-            background: var(--accent-pink);
-            color: #000;
-            border: none;
-            padding: 12px 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-primary-pink:hover {
-            box-shadow: 0 0 20px rgba(255, 121, 198, 0.5);
-            transform: translateY(-2px);
-        }
-        .btn-outline-dark {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--panel-border);
-            padding: 12px 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-outline-dark:hover {
-            border-color: var(--text-muted);
-            transform: translateY(-2px);
-        }
-        .lore-logo-area { text-align: center; }
-        .lore-logo-svg {
-            width: 160px; height: 160px;
-            filter: drop-shadow(0 0 15px rgba(255, 121, 198, 0.3));
-        }
+
         .lore-logo-title {
             font-size: 24px;
-            font-weight: bold;
-            color: var(--accent-pink);
             margin-top: 15px;
             letter-spacing: 3px;
         }
 
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .btn-primary-pink,
+        .btn-outline-dark {
+            padding: 12px 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-primary-pink {
+            background: var(--accent-cyan);
+            color: #000;
+        }
+
+        .btn-primary-pink:hover {
+            box-shadow: 0 0 20px rgba(255, 121, 198, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-dark {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--panel-border);
+        }
+
+        .btn-outline-dark:hover {
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .lore-logo-svg {
+            width: 160px;
+            height: 160px;
+            filter: drop-shadow(0 0 15px rgba(255, 121, 198, 0.3));
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        select option {
+            background-color: var(--panel-border);
+            color: var(--accent-cyan);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header-title">
-        <span>🌐</span> CYBERBLOOD 2199
+    <!-- 頂部標題與右上角按鈕區 -->
+    <div class="header-container">
+        <div class="header-title">
+            <span>🌐</span> CYBERBLOOD 2199
+        </div>
+        <div class="account-actions" id="auth-actions-container">
+            <button class="action-btn-auth" onclick="toggleModal('login-modal', true)">登入</button>
+            <button class="action-btn-auth btn-register" onclick="toggleModal('register-modal', true)">註冊</button>
+        </div>
     </div>
     
     <!-- 分頁選單按鈕區 -->
     <div class="nav-container">
-        <button id="tab-page-character" onclick="switchPage('page-character')" class="nav-tab active">🎮 角色控制台</button>
         <button id="tab-page-lore" onclick="switchPage('page-lore')" class="nav-tab">📜 世界觀背景</button>
         <button id="tab-page-rules" onclick="switchPage('page-rules')" class="nav-tab">🎲 判定規則</button>
+        <button id="tab-page-character" onclick="switchPage('page-character')" class="nav-tab active">🎮 角色控制台</button>
     </div>
 
     <!-- 頁面 1：角色控制面板 -->
@@ -307,8 +467,14 @@
                                 <option value="機械">機械</option>
                             </select>
                             <select id="char-bloodtype-1" class="field-line">
-                                <option value="RH+" selected>RH+</option>
-                                <option value="RH-">RH-</option>
+                                <option value="RH+A" selected>RH+A</option>
+                                <option value="RH+B">RH+B</option>
+                                <option value="RH+O">RH+O</option>
+                                <option value="RH+AB">RH+AB</option>
+                                <option value="RH-A">RH-A</option>
+                                <option value="RH-B">RH-B</option>
+                                <option value="RH-O">RH-O</option>
+                                <option value="RH-AB">RH-AB</option>
                             </select>
                         </div>
                         <div class="field-label">種族 ＆ 血型</div>
@@ -326,7 +492,15 @@
                         <select id="char-birthplace" class="field-line" style="color: var(--accent-pink);">
                             <option value="美利加和平國" selected>美利加和平國</option>
                             <option value="美洲聯合印加共和帝國">美洲聯合印加共和帝國</option>
+                            <option value="巴西聯邦共和國">巴西聯邦共和國</option>
                             <option value="青龍民族中華人民主義國">青龍民族中華人民主義國</option>
+                            <option value="俄羅斯主義蘇維埃聯邦帝國">俄羅斯主義蘇維埃聯邦帝國</option>
+                            <option value="東亞洲聯邦共和國">東亞洲聯邦共和國</option>
+                            <option value="亞細安社會主義協盟國">亞細安社會主義協盟國</option>
+                            <option value="以色列猶太帝國">以色列猶太帝國</option>
+                            <option value="大不列顛暨北愛爾蘭聯合王國">大不列顛暨北愛爾蘭聯合王國</option>
+                            <option value="北歐洲聯盟共和帝國">北歐洲聯盟共和帝國</option>
+                            <option value="澳大利亞聯邦國">澳大利亞聯邦國</option>
                         </select>
                         <div class="field-label">出生國家</div>
                     </div>
@@ -377,7 +551,7 @@
                 <div class="desc-box-title">⚡ 角色當前狀態</div>
                 <div class="grid-2" style="font-size: 14px; margin-top: 10px;">
                     <div>
-                        <p>血量：<strong id="stat-hp" style="color: var(--accent-pink);">0</strong></p>
+                        <p>血量：<strong id="stat-hp" style="color: var(--accent-cyan);">0</strong></p>
                         <p>負重上限：<strong id="stat-carry">0</strong> kg</p>
                     </div>
                     <div>
@@ -398,9 +572,9 @@
             </div>
         </div>
 
-        <!-- 技能點數引擎 (左右雙欄精簡排版) -->
+        <!-- 技能點數引擎 (左右雙欄排版) -->
         <div class="cyber-card">
-            <div class="desc-box-title">🎯 技能矩陣 (可用點數：<span id="available-skill-points" style="color: var(--accent-pink); font-size: 16px;">15</span> / 53)</div>
+            <div class="desc-box-title">🎯 技能矩陣 (可用點數：<span id="available-skill-points" style="color: var(--accent-cyan); font-size: 16px;">15</span> / 53)</div>
             <div class="grid-2" style="gap: 20px; align-items: start; margin-top: 10px;">
                 <table>
                     <thead>
@@ -434,11 +608,11 @@
                 </div>
             </div>
             <button class="main-btn" onclick="rollskillCheck()">執行 D20 檢定</button>
-            <div id="dice-output" style="margin-top: 15px; text-align: center; font-size: 14px; color: var(--accent-pink);">等待指令...</div>
+            <div id="dice-output" style="margin-top: 15px; text-align: center; font-size: 14px; color: var(--accent-cyan);">等待指令...</div>
         </div>
     </div>
 
-    <!-- 頁面 2：世界觀背景 (解憂者風格 Hero Section) -->
+    <!-- 頁面 2：世界觀背景 -->
     <div id="page-lore" class="page-content" style="display: none;">
         <div class="lore-hero-container">
             <div>
@@ -448,8 +622,8 @@
                     您的選擇將決定一切。
                 </div>
                 <div class="lore-subtitle">
-                    第四次世界大戰，人類最終仍然動用了核武器。一瞬間的地表頃刻成為人間地獄，為了生存，人類躲到了地下避難，逐漸的，文明重新開始在地下發展。
-                    過了二十年後，科學家終於研發出能夠抵抗輻射的基因，雖然尚有缺陷，但是這能夠勉強抵抗地表強烈的輻射，人們嘗試脫離地下世界。
+                    第四次世界大戰，人類最終仍然動用了核武器。一瞬間的地表頃刻成為人間地獄，為了生存，人類躲到了地下避難，逐漸的文明重新開始在地下發展。<br>
+                    過了二十年後，科學家終於研發出能夠抵抗輻射的基因，雖然尚有缺陷，但是這能夠勉強抵抗地表強烈的輻射，人們嘗試脫離地下世界。<br>
                     又過了幾年，地表原有的文明開始被改造後的人類發展拓荒，新的建築設施在地表緩慢築起，這群改造後的人類則被後世稱為——血裔。
                 </div>
                 <div class="lore-btn-group">
@@ -458,7 +632,7 @@
                 </div>
             </div>
 
-            <div class="lore-logo-area">
+            <div style="text-align: center;">
                 <svg class="lore-logo-svg" viewBox="0 0 100 100" fill="none" stroke="#ff79c6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M 30,20 C 10,20 10,50 30,50 C 50,50 50,20 70,20 C 90,20 90,50 70,50 C 50,50 30,80 70,80" />
                     <circle cx="75" cy="45" r="3" fill="#ff79c6" />
@@ -479,10 +653,45 @@
             </p>
         </div>
     </div>
+</div>
 
+<!-- 登入 / 存檔碼彈出視窗 (Modal) -->
+<div id="login-modal" class="modal-overlay" style="display: none;">
+    <div class="cyber-card modal-content">
+        <div class="modal-header">
+            <div class="desc-box-title" style="margin: 0; font-size: 18px;">🔑 角色存檔碼系統</div>
+            <button class="modal-close-btn" onclick="toggleModal('login-modal', false)">✕</button>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin: 15px 0 20px 0;">
+            請選擇你要導出當前角色資料為存檔碼，或是輸入已有的存檔碼進行載入：
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <button class="main-btn" style="margin: 0;" onclick="exportSaveCode(); toggleModal('login-modal', false);">📋 導出當前角色存檔碼</button>
+            <button class="main-btn" style="margin: 0; background: transparent; color: var(--accent-cyan); border: 1px solid var(--accent-cyan);" onclick="importSaveCode(); toggleModal('login-modal', false);">📥 導入存檔碼載入角色</button>
+        </div>
+    </div>
+</div>
+
+<!-- 註冊警示彈出視窗 (Register Modal) -->
+<div id="register-modal" class="modal-overlay" style="display: none;">
+    <div class="cyber-card modal-content" style="border-color: var(--accent-pink);">
+        <div class="modal-header" style="border-color: var(--accent-pink);">
+            <div class="desc-box-title" style="margin: 0; font-size: 18px; color: var(--accent-pink);">⚠️ 建立新角色警示</div>
+            <button class="modal-close-btn" onclick="toggleModal('register-modal', false)">✕</button>
+        </div>
+        <p style="font-size: 13px; color: var(--text-main); line-height: 1.6; margin: 15px 0 20px 0;">
+            警告：建立新角色將會<strong style="color: var(--accent-pink);">清空當前頁面所有未保存的屬性與配點</strong>！<br><br>
+            如果當前角色尚未導出存檔碼，請先點擊「登入」進行備份。確定要建立空白角色卡嗎？
+        </p>
+        <div style="display: flex; gap: 10px;">
+            <button class="main-btn" style="margin: 0; background: var(--accent-pink); color: #000;" onclick="confirmRegisterNewCharacter()">確認建立空白卡</button>
+            <button class="main-btn" style="margin: 0; background: transparent; color: var(--text-main); border: 1px solid var(--panel-border);" onclick="toggleModal('register-modal', false)">取消</button>
+        </div>
+    </div>
 </div>
 
 <script>
+    // ==================== 1. 種族與屬性核心設定 ====================
     const racesData = {
         "半血裔": { strength: 1, agility: 2, constitution: 1, perception: 1, willpower: 2, appearance: 0, rad: 2 },
         "血裔":   { strength: 3, agility: 2, constitution: 3, perception: 2, willpower: 2, appearance: 3, rad: 3 },
@@ -509,16 +718,13 @@
 
     function getFinalStat(statKey) {
         let base = characterBaseStats[statKey] || 0;
-        let raceSelect = document.getElementById("char-race");
-        let raceName = raceSelect ? raceSelect.value : "半血裔";
-        let ageNum = parseInt(document.getElementById("char-age").value) || 18;
-        let stage = getAgeStage(ageNum);
-        let rBonus = racesData[raceName]?.[statKey] || 0;
-        let aBonus = getAgeBonus(stage)[statKey] || 0;
-        return base + rBonus + aBonus;
+        let raceName = document.getElementById("char-race").value || "半血裔";
+        let stage = getAgeStage(parseInt(document.getElementById("char-age").value) || 18);
+        return base + (racesData[raceName]?.[statKey] || 0) + (getAgeBonus(stage)[statKey] || 0);
     }
 
-    let totalSkillPointsPool = 53;
+    // ==================== 2. 技能點數矩陣 ====================
+    const totalSkillPointsPool = 53;
     let skillsData = [
         { id: "throw", name: "投擲", calcBase: () => Math.floor(getFinalStat("strength") * 0.25 + getFinalStat("agility") * 0.25 + 1), points: 0, growth: 0 },
         { id: "brawl", name: "格鬥", calcBase: () => Math.floor(getFinalStat("strength") * 0.3 + getFinalStat("constitution") * 0.2 + 1), points: 0, growth: 0 },
@@ -550,83 +756,75 @@
     function modifySkillPoint(skillId, amount) {
         let skill = skillsData.find(s => s.id === skillId);
         if (!skill) return;
-        let used = getUsedSkillPoints();
 
-        if (amount > 0) {
-            if (used >= totalSkillPointsPool) return;
-            if (skill.calcBase() + skill.points + skill.growth + amount > 20) return;
-        }
+        let used = getUsedSkillPoints();
+        if (amount > 0 && (used >= totalSkillPointsPool || skill.calcBase() + skill.points + skill.growth + amount > 20)) return;
         if (amount < 0 && skill.points <= 0) return;
 
         skill.points += amount;
         updateAll();
     }
 
+    // ==================== 3. 畫面狀態渲染 ====================
     function updateAll() {
         let ageNum = parseInt(document.getElementById("char-age").value) || 18;
         let stage = getAgeStage(ageNum);
         document.getElementById("auto-age-stage").innerText = `(${stage})`;
-
-        let tbody = document.getElementById("stats-table-body");
-        tbody.innerHTML = "";
         let raceName = document.getElementById("char-race").value || "半血裔";
 
+        // 更新屬性表格
+        let tbody = document.getElementById("stats-table-body");
+        tbody.innerHTML = "";
         for (let key in statNames) {
             let base = characterBaseStats[key];
             let bonus = (racesData[raceName]?.[key] || 0) + (getAgeBonus(stage)[key] || 0);
-            let final = base + bonus;
-            tbody.innerHTML += `<tr>
-                <td>${statNames[key]}</td>
-                <td>${base}</td>
-                <td>${bonus >= 0 ? '+' + bonus : bonus}</td>
-                <td><strong>${final}</strong></td>
-            </tr>`;
+            tbody.innerHTML += `
+                <tr>
+                    <td>${statNames[key]}</td>
+                    <td>${base}</td>
+                    <td>${bonus >= 0 ? '+' + bonus : bonus}</td>
+                    <td><strong>${base + bonus}</strong></td>
+                </tr>`;
         }
 
+        // 更新狀態數值
         let finalStr = getFinalStat("strength");
         let finalCon = getFinalStat("constitution");
         document.getElementById("stat-hp").innerText = finalCon * 2 + Math.floor(finalStr / 2);
         document.getElementById("stat-carry").innerText = finalStr * 2.5;
         document.getElementById("stat-brawl").innerText = Math.floor(finalStr / 3) + " 點";
         document.getElementById("stat-rad").innerText = racesData[raceName]?.rad || 0;
-
         document.getElementById("available-skill-points").innerText = totalSkillPointsPool - getUsedSkillPoints();
         
-        // 渲染左右雙欄技能表
+        // 更新技能左右雙欄表格
         let skillsLeft = document.getElementById("skills-table-body-left");
         let skillsRight = document.getElementById("skills-table-body-right");
-        
-        if (skillsLeft && skillsRight) {
-            skillsLeft.innerHTML = "";
-            skillsRight.innerHTML = "";
+        skillsLeft.innerHTML = "";
+        skillsRight.innerHTML = "";
 
-            let splitIndex = skillsData.findIndex(s => s.id === "investigation");
-            if (splitIndex === -1) splitIndex = 13;
-
-            skillsData.forEach((s, index) => {
-                let dynamicBase = s.calcBase();
-                let finalVal = dynamicBase + s.points + s.growth;
-                let rowHtml = `<tr>
+        skillsData.forEach((s, index) => {
+            let rowHtml = `
+                <tr>
                     <td><strong>${s.name}</strong></td>
-                    <td>${dynamicBase}</td>
+                    <td>${s.calcBase()}</td>
                     <td><span style="color: var(--accent-pink); font-weight: bold;">${s.points}</span></td>
                     <td>${s.growth}</td>
-                    <td><strong style="color: var(--accent-green);">${finalVal}</strong></td>
+                    <td><strong style="color: var(--accent-green);">${s.calcBase() + s.points + s.growth}</strong></td>
                     <td>
                         <button class="action-btn" onclick="modifySkillPoint('${s.id}', -1)">-</button>
                         <button class="action-btn" onclick="modifySkillPoint('${s.id}', 1)">+</button>
                     </td>
                 </tr>`;
-
-                if (index < splitIndex) {
-                    skillsLeft.innerHTML += rowHtml;
-                } else {
-                    skillsRight.innerHTML += rowHtml;
-                }
-            });
-        }
+            
+            if (index < 13) {
+                skillsLeft.innerHTML += rowHtml;
+            } else {
+                skillsRight.innerHTML += rowHtml;
+            }
+        });
     }
 
+    // ==================== 4. 檢定與分頁選單 ====================
     function rollskillCheck() {
         let targetKey = document.getElementById("dice-target").value;
         let foundSkill = skillsData.find(s => s.id === targetKey);
@@ -644,6 +842,7 @@
         let typeSelect = document.getElementById("check-type").value;
         let targetSelect = document.getElementById("dice-target");
         targetSelect.innerHTML = "";
+
         if (typeSelect === "stat") {
             for (let key in statNames) {
                 targetSelect.innerHTML += `<option value="${key}">${statNames[key]}</option>`;
@@ -658,12 +857,119 @@
     function switchPage(pageId) {
         document.querySelectorAll('.page-content').forEach(p => p.style.display = 'none');
         document.getElementById(pageId).style.display = 'block';
+        
         document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
         let activeTab = document.getElementById('tab-' + pageId);
         if (activeTab) activeTab.classList.add('active');
+
+        let authContainer = document.getElementById('auth-actions-container');
+        if (authContainer) {
+            authContainer.style.display = (pageId === 'page-character') ? 'flex' : 'none';
+        }
     }
 
+    // ==================== 5. 彈出視窗 Modal 控制 ====================
+    function toggleModal(modalId, show) {
+        document.getElementById(modalId).style.display = show ? 'flex' : 'none';
+    }
+
+    window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal-overlay')) {
+            event.target.style.display = 'none';
+        }
+    });
+
+    // ==================== 6. 存檔與 Base64 導入/導出 ====================
+    function utf8_to_b64(str) {
+        return window.btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
+    }
+
+    function b64_to_utf8(str) {
+        return decodeURIComponent(window.atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    }
+
+    function applyCharacterData(savedData) {
+        const fields = ['name', 'age', 'race', 'bloodtype', 'gender', 'birthplace', 'birthday', 'residenceZone', 'residenceCity', 'job', 'appearance', 'story'];
+        fields.forEach(field => {
+            let elId = field === 'bloodtype' ? 'char-bloodtype-1' : 
+                       (field === 'residenceZone' ? 'char-residence-zone' : 
+                       (field === 'residenceCity' ? 'char-residence-city' : 'char-' + field.toLowerCase()));
+            let el = document.getElementById(elId);
+            if (el && savedData[field] !== undefined) el.value = savedData[field];
+        });
+
+        if (savedData.skillPoints && Array.isArray(savedData.skillPoints)) {
+            savedData.skillPoints.forEach(savedSkill => {
+                let skill = skillsData.find(s => s.id === savedSkill.id);
+                if (skill) {
+                    skill.points = savedSkill.points || 0;
+                    skill.growth = savedSkill.growth || 0;
+                }
+            });
+        }
+        updateAll();
+    }
+
+    function exportSaveCode() {
+        const saveData = {
+            name: document.getElementById("char-name").value,
+            age: document.getElementById("char-age").value,
+            race: document.getElementById("char-race").value,
+            bloodtype: document.getElementById("char-bloodtype-1").value,
+            gender: document.getElementById("char-gender").value,
+            birthplace: document.getElementById("char-birthplace").value,
+            birthday: document.getElementById("char-birthday").value,
+            residenceZone: document.getElementById("char-residence-zone").value,
+            residenceCity: document.getElementById("char-residence-city").value,
+            job: document.getElementById("char-job").value,
+            appearance: document.getElementById("char-appearance").value,
+            story: document.getElementById("char-story").value,
+            skillPoints: skillsData.map(s => ({ id: s.id, points: s.points, growth: s.growth }))
+        };
+
+        try {
+            const saveCode = utf8_to_b64(JSON.stringify(saveData));
+            navigator.clipboard.writeText(saveCode).then(() => {
+                alert("🔑 存檔碼已成功複製到剪貼簿！");
+            }).catch(() => {
+                prompt("🔑 請複製下方存檔碼：", saveCode);
+            });
+        } catch (e) {
+            alert("❌ 生成存檔碼失敗：" + e.message);
+        }
+    }
+
+    function importSaveCode() {
+        const inputCode = prompt("📥 請貼上你的角色存檔碼：");
+        if (!inputCode || !inputCode.trim()) return;
+
+        try {
+            const jsonString = b64_to_utf8(inputCode.trim());
+            applyCharacterData(JSON.parse(jsonString));
+            localStorage.setItem("cyberblood_char_data", jsonString);
+            alert("✅ 角色卡導入成功！");
+        } catch (e) {
+            alert("❌ 存檔碼格式錯誤或無效！");
+        }
+    }
+
+    function confirmRegisterNewCharacter() {
+        applyCharacterData({
+            name: "新角色", age: 18, race: "", bloodtype: "",
+            gender: "", birthplace: "", birthday: "",
+            residenceZone: "", residenceCity: "", job: "",
+            appearance: "", story: "",
+            skillPoints: skillsData.map(s => ({ id: s.id, points: 0, growth: 0 }))
+        });
+        toggleModal('register-modal', false);
+    }
+
+    // ==================== 7. 初始化載入 ====================
     window.onload = function() {
+        const json = localStorage.getItem("cyberblood_char_data");
+        if (json) {
+            try { applyCharacterData(JSON.parse(json)); } catch (e) { console.error(e); }
+        }
         updateAll();
         updateTargetOptions();
         switchPage('page-character');
