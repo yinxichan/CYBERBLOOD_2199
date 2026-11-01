@@ -482,15 +482,22 @@
                 font-size: 24px;
             }
 
-            /* 6. 技能表格手機版縫合與隱藏第二個表頭 */
-            #skills-table-body-left table {
+        /* 1. 讓技能網格在手機上變成單欄直立 */
+            .skills-grid-container {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+
+            /* 2. 讓同一個分類方塊內多張表格上下無縫貼合 */
+            .skill-category-box table {
+                margin-top: 0 !important;
                 margin-bottom: 0 !important;
                 border-bottom: none !important;
             }
-            #skills-table-body-right table {
-                margin-top: 0 !important;
-            }
-            #skills-table-body-right table thead {
+
+            /* 3. 隱藏「該分類方塊內，從第二張表格開始」的表頭，達成無縫接軌！ */
+            .skill-category-box table:not(:first-child) thead {
                 display: none !important;
             }
         }
