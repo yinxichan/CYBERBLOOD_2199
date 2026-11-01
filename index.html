@@ -497,24 +497,23 @@
             display: table !important; /* 確保表格不會被其他 grid 設定扭曲 */
         }
 
-            /* 1. 消除左右兩張表格之間的外距與間隔 */
+        /* 1. 將技能區塊內的雙欄容器改為直立排列，並消除中間間距 */
         .cyber-card .grid-2 {
-            display: block !important; /* 不使用 flex/grid 的 gap 間距 */
+            display: block !important;
         }
 
-        /* 2. 讓第一張表格底部去掉邊框，第二張表格頂部去掉邊框，達成視覺縫合 */
-        #skills-table-body-left table,
+        /* 2. 讓第一張表格底部與第二張表格頂部無縫對齊 */
         #skills-table-body-left {
             margin-bottom: 0 !important;
         }
-
-        /* 3. 隱藏手機版第二張表格的表頭 (<thead>)，並消除頂部外距 */
-        .cyber-card .grid-2 table:nth-child(2) thead {
-            display: none !important;
+        
+        #skills-table-body-right {
+            margin-top: 15px !important; /* 保留適當間距，讓表頭清晰區隔 */
         }
 
-        .cyber-card .grid-2 table:nth-child(2) {
-            margin-top: -1px !important; /* 讓兩張表格的線條完美重疊成單線 */
+        /* 3. 確保表格寬度 100% 不錯位 */
+        .cyber-card table {
+            width: 100% !important;
         }
     }
     </style>
