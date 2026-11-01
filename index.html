@@ -421,101 +421,79 @@
         }
 
         /* ==================== 手機端響應式排版 (RWD) ==================== */
-    @media (max-width: 768px) {
-        /* 1. 容器內邊距縮小 */
-        body {
-            padding: 15px 10px;
-        }
+        @media (max-width: 768px) {
+            /* 1. 基礎頁面與排版微調 */
+            body {
+                padding: 15px 10px;
+            }
+            .header-title {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+            .action-btn-auth {
+                padding: 6px 10px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
 
-        /* 2. 頂部 Header 改為上下或放寬比例 */
-        .header-title {
-            font-size: 20px;
-            letter-spacing: 2px;
-        }
-        .action-btn-auth {
-            padding: 6px 10px;
-            font-size: 12px;
-            white-space: nowrap; /* 防止按鈕字被擠成直排 */
-        }
+            /* 2. 導覽列分頁按鈕自適應 */
+            .nav-container {
+                gap: 6px;
+            }
+            .nav-tab {
+                padding: 8px 10px;
+                font-size: 12px;
+                flex: 1;
+                text-align: center;
+            }
 
-        /* 3. 導覽列分頁按鈕自適應 */
-        .nav-container {
-            gap: 6px;
-        }
-        .nav-tab {
-            padding: 8px 10px;
-            font-size: 12px;
-            flex: 1; /* 三個按鈕平分寬度 */
-            text-align: center;
-        }
+            /* 3. 雙欄 Grid 轉為單欄，身分卡維持每列 2 個欄位 */
+            .grid-2 {
+                display: block !important;
+            }
+            .info-card-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px 10px;
+            }
 
-        /* 4. 所有雙欄 Grid 轉為單欄上下排列 */
-        .grid-2, 
-        .info-card-grid {
-            grid-template-columns: 1fr !important;
-            gap: 15px;
-        }
+            /* 4. 輸入框、標籤與表格字體微調 */
+            .field-line {
+                font-size: 13px;
+            }
+            .field-label {
+                font-size: 11px;
+            }
+            th, td {
+                padding: 6px 4px;
+                font-size: 12px;
+            }
+            .cyber-card table {
+                width: 100% !important;
+            }
 
-        /* 5. 身分資料卡：改為每列 2 個欄位 */
-        .info-card-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px 10px;
-        }
+            /* 5. 首頁 Lore Hero 區塊轉單欄 */
+            .lore-hero-container {
+                grid-template-columns: 1fr;
+                padding: 25px 20px;
+                gap: 25px;
+            }
+            .lore-slogan-title {
+                font-size: 24px;
+            }
 
-        /* 6. 輸入框與下拉選單寬度與文字調適 */
-        .field-line {
-            font-size: 13px;
+            /* 6. 技能表格手機版縫合與隱藏第二個表頭 */
+            #skills-table-body-left table {
+                margin-bottom: 0 !important;
+                border-bottom: none !important;
+            }
+            #skills-table-body-right table {
+                margin-top: 0 !important;
+            }
+            #skills-table-body-right table thead {
+                display: none !important;
+            }
         }
-        .field-label {
-            font-size: 11px;
-        }
-
-        /* 7. 表格字體微調與防止破版 */
-        th, td {
-            padding: 6px 4px;
-            font-size: 12px;
-        }
-
-        /* 8. 首頁 Lore Hero 區塊轉單欄 */
-        .lore-hero-container {
-            grid-template-columns: 1fr;
-            padding: 25px 20px;
-            gap: 25px;
-        }
-        .lore-slogan-title {
-            font-size: 24px;
-        }
-        .cyber-card .grid-2 {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 25px !important; /* 兩個表格之間的上下間距 */
-        }
-
-        .cyber-card table {
-            width: 100% !important;
-            display: table !important; /* 確保表格不會被其他 grid 設定扭曲 */
-        }
-
-        /* 1. 將技能區塊內的雙欄容器改為直立排列，並消除中間間距 */
-        .cyber-card .grid-2 {
-            display: block !important;
-        }
-
-        /* 2. 讓第一張表格底部與第二張表格頂部無縫對齊 */
-        #skills-table-body-left {
-            margin-bottom: 0 !important;
-        }
-        
-        #skills-table-body-right {
-            margin-top: 15px !important; /* 保留適當間距，讓表頭清晰區隔 */
-        }
-
-        /* 3. 確保表格寬度 100% 不錯位 */
-        .cyber-card table {
-            width: 100% !important;
-        }
-    }
     </style>
 </head>
 <body>
