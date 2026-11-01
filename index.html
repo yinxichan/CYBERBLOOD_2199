@@ -496,6 +496,26 @@
             width: 100% !important;
             display: table !important; /* 確保表格不會被其他 grid 設定扭曲 */
         }
+
+            /* 1. 消除左右兩張表格之間的外距與間隔 */
+        .cyber-card .grid-2 {
+            display: block !important; /* 不使用 flex/grid 的 gap 間距 */
+        }
+
+        /* 2. 讓第一張表格底部去掉邊框，第二張表格頂部去掉邊框，達成視覺縫合 */
+        #skills-table-body-left table,
+        #skills-table-body-left {
+            margin-bottom: 0 !important;
+        }
+
+        /* 3. 隱藏手機版第二張表格的表頭 (<thead>)，並消除頂部外距 */
+        .cyber-card .grid-2 table:nth-child(2) thead {
+            display: none !important;
+        }
+
+        .cyber-card .grid-2 table:nth-child(2) {
+            margin-top: -1px !important; /* 讓兩張表格的線條完美重疊成單線 */
+        }
     }
     </style>
 </head>
